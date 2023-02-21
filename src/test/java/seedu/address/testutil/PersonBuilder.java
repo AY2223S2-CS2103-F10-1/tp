@@ -30,6 +30,10 @@ public class PersonBuilder {
     private Remark remark;
     private Set<Tag> tags;
 
+    /**
+     * Constructs an {@code PersonBuilder}.
+     * Create sample person for test
+     */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
