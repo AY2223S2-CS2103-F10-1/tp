@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPersonDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private final EditPersonDescriptor descriptor;
 
     public EditPersonDescriptorBuilder() {
         descriptor = new EditPersonDescriptor();
@@ -36,6 +36,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setRemark(person.getRemark());
         descriptor.setTags(person.getTags());
     }
 
