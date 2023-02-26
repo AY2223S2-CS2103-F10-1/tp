@@ -5,49 +5,84 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ "friends" ]
+=======
+    "tagged" : [ "friends" ],
+    "id" : "cfa7fa72-e310-4928-a53b-2a5658242f7b"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ "owesMoney", "friends" ]
+=======
+    "tagged" : [ "owesMoney", "friends" ],
+    "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26a85"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ ]
+=======
+    "tagged" : [ ],
+    "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b85"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ "friends" ]
+=======
+    "tagged" : [ "friends" ],
+    "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b83"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ ]
+=======
+    "tagged" : [ ],
+    "id" : "5ad1dd04-e8d8-311e-9916-2f89bce26b85"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ ]
+=======
+    "tagged" : [ ],
+    "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b82"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name" : "George Best",
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
+<<<<<<< HEAD
     "remark" : "",
     "tagged" : [ ]
+=======
+    "tagged" : [ ],
+    "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b81"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   } ]
 }

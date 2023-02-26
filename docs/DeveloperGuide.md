@@ -279,6 +279,51 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
 | `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
 
+# OfficeConnect
+
+As a **user**, I want to **be able to add a new task to my task list** so that **I can keep track of all the tasks I need to complete**.
+
+## Acceptance Criteria
+
+- When I use the "add" command followed by a task name, a new task with the given name should be added to my task list.
+- The task name should be displayed in the task list.
+- The task should be saved to persistent storage so that it is not lost when I exit the app.
+
+## Example Usage
+
+
+> addtask n/Finish report
+Task added: Finish report
+
+> listtask
+1. Finish report
+2. Send email to team
+3. Call client
+
+> listtask
+1. Finish report
+2. Send email to team
+3. Call client
+
+> findtask report
+1. Finish report
+
+> deletetask 1
+Task deleted: Finish report
+
+> listtask
+1. Send email to team
+2. Call client
+
+> quit
+
+Are you sure you want to quit? (Y/N)
+> Y
+Goodbye!
+
+
+In the example above, the user story is clearly defined at the top, followed by the acceptance criteria for the feature. Below that, we have a series of example usages, shown in a code editor block to provide clarity and context for how the feature would work in practice.
+
 *{More to be added}*
 
 ### Use cases

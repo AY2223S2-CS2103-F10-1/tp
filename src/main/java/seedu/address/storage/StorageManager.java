@@ -8,8 +8,11 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRepository;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.mapping.PersonTask;
+import seedu.address.model.task.Task;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -17,8 +20,10 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
-    private UserPrefsStorage userPrefsStorage;
+    private final AddressBookStorage addressBookStorage;
+    private final UserPrefsStorage userPrefsStorage;
+    private final RepositoryStorage<Task> taskRepositoryStorage;
+    private final RepositoryStorage<PersonTask> personTaskRepositoryStorage;
 
     /**
      * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
@@ -26,6 +31,22 @@ public class StorageManager implements Storage {
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        UserPrefs userPrefs = new UserPrefs();
+        taskRepositoryStorage = new JsonTaskStorage(userPrefs.getTaskFilePath());
+        personTaskRepositoryStorage = new JsonPersonTaskStorage(userPrefs.getPersonTaskPath());
+    }
+
+    /**
+     * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+     */
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+        RepositoryStorage<Task> taskRepositoryStorage, RepositoryStorage<PersonTask> personTaskRepositoryStorage) {
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+
+        this.taskRepositoryStorage = taskRepositoryStorage;
+        this.personTaskRepositoryStorage = personTaskRepositoryStorage;
+
     }
 
     // ================ UserPrefs methods ==============================
@@ -73,6 +94,31 @@ public class StorageManager implements Storage {
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
+    }
+
+    @Override
+
+    public Optional<ReadOnlyRepository<Task>> readTaskBook() throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from task file");
+        return taskRepositoryStorage.readRepository();
+    }
+    @Override
+
+    public void saveTaskBook(ReadOnlyRepository<Task> taskBook) throws IOException {
+        logger.fine("Attempting to save data to task file");
+        taskRepositoryStorage.saveRepository(taskBook);
+    }
+    @Override
+
+    public Optional<ReadOnlyRepository<PersonTask>> readPersonTaskBook() throws DataConversionException, IOException {
+        logger.fine("Attempting to read data to person_task file");
+        return personTaskRepositoryStorage.readRepository();
+    }
+    @Override
+
+    public void savePersonTaskBook(ReadOnlyRepository<PersonTask> personTaskBook) throws IOException {
+        logger.fine("Attempting to save data to person_task file");
+        personTaskRepositoryStorage.saveRepository(personTaskBook);
     }
 
 }

@@ -10,7 +10,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+<<<<<<< HEAD
 import seedu.address.model.person.*;
+=======
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.shared.Id;
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,7 +34,14 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
 
+<<<<<<< HEAD
     private final String remark;
+=======
+
+    @JsonProperty("id")
+    private final String id;
+
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,12 +50,21 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+<<<<<<< HEAD
                              @JsonProperty("remark") String remark, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+=======
+            @JsonProperty("id") String id,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+<<<<<<< HEAD
         this.remark = remark;
+=======
+        this.id = id;
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -53,7 +78,11 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+<<<<<<< HEAD
         remark = source.getRemark().value;
+=======
+        id = source.getId().getValue().toString();
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -68,6 +97,9 @@ class JsonAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+        if (id == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Id.class.getSimpleName()));
         }
 
         if (name == null) {

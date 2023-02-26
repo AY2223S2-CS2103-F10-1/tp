@@ -18,13 +18,22 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.OfficeConnectModel;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRepository;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Repository;
+import seedu.address.model.RepositoryModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.mapping.PersonTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonPersonTaskStorage;
+import seedu.address.storage.JsonTaskStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.RepositoryStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -44,6 +53,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected OfficeConnectModel officeConnectModel;
     protected Config config;
 
     @Override
@@ -57,15 +67,59 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        RepositoryStorage<Task> taskRepositoryStorage = new JsonTaskStorage(userPrefs.getTaskFilePath());
+        RepositoryStorage<PersonTask> personTaskStorage = new JsonPersonTaskStorage(userPrefs
+            .getPersonTaskPath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, taskRepositoryStorage, personTaskStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        officeConnectModel = initOfficeConnectModel(storage);
+
+        logic = new LogicManager(model, storage, officeConnectModel);
 
         ui = new UiManager(logic);
+    }
+
+    /**
+     * Returns a {@code OfficeConnectModel} with the data from {@code storage}'s repository and {@code userPrefs}. <br>
+     * The data from the sample repository will be used instead if {@code storage}'s repository is not found,
+     * or an empty repository will be used instead if errors occur when reading {@code storage}'s repository.
+     */
+    private OfficeConnectModel initOfficeConnectModel(Storage storage) {
+
+
+        Optional<ReadOnlyRepository<Task>> taskReadOnlyRepository;
+        Optional<ReadOnlyRepository<PersonTask>> personTaskReadOnlyRepository;
+        ReadOnlyRepository<Task> initialTaskData;
+        ReadOnlyRepository<PersonTask> initialPersonTaskData;
+        try {
+            taskReadOnlyRepository = storage.readTaskBook();
+            personTaskReadOnlyRepository = storage.readPersonTaskBook();
+            if (taskReadOnlyRepository.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialTaskData = taskReadOnlyRepository.orElseGet(SampleDataUtil::getSampleTasksRepo);
+            initialPersonTaskData = personTaskReadOnlyRepository.orElseGet(SampleDataUtil::getSamplePersonTasksRepo);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialTaskData = new Repository<>();
+            initialPersonTaskData = new Repository<>();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialTaskData = new Repository<>();
+            initialPersonTaskData = new Repository<>();
+
+        }
+
+        RepositoryModelManager<Task> taskRepositoryModelManager =
+            new RepositoryModelManager<>(initialTaskData);
+        RepositoryModelManager<PersonTask> personTaskRepositoryModelManager =
+            new RepositoryModelManager<>(initialPersonTaskData);
+
+        return new OfficeConnectModel(taskRepositoryModelManager, personTaskRepositoryModelManager);
     }
 
     /**
@@ -78,7 +132,7 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            if (addressBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);

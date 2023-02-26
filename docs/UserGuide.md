@@ -2,9 +2,7 @@
 layout: page
 title: User Guide
 ---
-
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
-
+OfficeConnect is a task management tool designed specifically for managerial role personnel at companies. It was built upon the codebase of AddressBook Level 3 (AB3), a desktop app for managing contacts. While AB3 was optimized for use via a Command Line Interface (CLI) with the benefits of a Graphical User Interface (GUI), OfficeConnect extends its functionalities to address the unique challenges faced by managers in the current office environment. With OfficeConnect, managers can efficiently delegate tasks, improve coordination among team members, and automate the process of planning and communicating with subordinates, all while benefiting from the speed of a CLI-based app.
 * Table of Contents
 {:toc}
 
@@ -41,7 +39,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
+<div class="alert alert-info">
 
 **:information_source: Notes about the command format:**<br>
 
@@ -80,7 +78,7 @@ Adds a person to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
@@ -163,9 +161,55 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
 </div>
+
+# Command Summary For OfficeConnect
+
+## Adding a Task: `addtask`
+Format: `addtask n/NAME`
+
+Adds a task to OfficeConnect.
+
+Examples:
+- `add n/Send email to supplier`
+- `add n/Restock shelves`
+
+## Deleting a Task: `deletetask`
+Format: `deletetask INDEX [MORE_INDEX]`
+
+Deletes the task at the specified INDEX.
+The INDEX refers to the INDEX shown in the displayed task list.
+The INDEX must be a positive integer 1, 2, 3...
+
+Examples:
+- `listtasks` followed by `delete 2` deletes the 2nd task in the task list.
+- `findtasks book` followed by `delete 1` deletes the 1st task in the results of the `findtask` command.
+
+## Finding a Specific Task: `findtask`
+Format: `findtask KEYWORD [MORE_KEYWORDS]`
+
+Finds the task based on given keyword.
+
+Examples:
+- `findtask complete`
+
+## Listing the Tasks: `listtask`
+Format: `listtask`
+
+Lists all the tasks in OfficeConnect.
+
+## Assigning a Task to a Person: `assign`
+Format: `assign /task INDEX /person INDEX`
+
+Assigns the task at specified index to the person at specified index.
+The index refers to the index number shown in the displayed person/task list.
+The index must be a positive integer 1, 2, 3...
+
+Examples:
+- `assign /task 2 /person 3` assigns task 2 to person 3.
+
 
 ### Archiving data files `[coming in v2.0]`
 

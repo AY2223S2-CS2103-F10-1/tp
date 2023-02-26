@@ -4,13 +4,22 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
+<<<<<<< HEAD
     "remark" : "",
     "tagged": [ "friends" ]
+=======
+    "tagged": [ "friends" ],
+    "id" : "cfa7fa72-e310-4928-a53b-2a5658242f7b"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street",
+<<<<<<< HEAD
     "remark" : ""
+=======
+    "id" : "cfa7fa72-e310-4928-a53b-2a5658242f7b"
+>>>>>>> c74a83152ed2ee5c806c6fc35171635eeef79a12
   } ]
 }
