@@ -24,18 +24,20 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.remark = remark;
         this.id = new Id();
     }
 
@@ -43,13 +45,14 @@ public class Person {
      * Every field must be present and not null.
      * ID must be specific when loading from local storage
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Id id) {
+    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags, Id id) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.remark = remark;
         this.id = id;
     }
 
@@ -70,6 +73,10 @@ public class Person {
     }
     public Id getId() {
         return id;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -130,7 +137,9 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append(" Remark: ")
+                .append(getRemark());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

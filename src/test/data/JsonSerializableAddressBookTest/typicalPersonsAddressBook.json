@@ -5,6 +5,7 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "remark" : "",
     "tagged" : [ "friends" ],
     "id" : "cfa7fa72-e310-4928-a53b-2a5658242f7b"
   }, {
@@ -12,6 +13,7 @@
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
+    "remark" : "",
     "tagged" : [ "owesMoney", "friends" ],
     "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26a85"
   }, {
@@ -19,6 +21,7 @@
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "address" : "wall street",
+    "remark" : "",
     "tagged" : [ ],
     "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b85"
   }, {
@@ -26,6 +29,7 @@
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "address" : "10th street",
+    "remark" : "",
     "tagged" : [ "friends" ],
     "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b83"
   }, {
@@ -33,6 +37,7 @@
     "phone" : "9482224",
     "email" : "werner@example.com",
     "address" : "michegan ave",
+    "remark" : "",
     "tagged" : [ ],
     "id" : "5ad1dd04-e8d8-311e-9916-2f89bce26b85"
   }, {
@@ -40,6 +45,7 @@
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "address" : "little tokyo",
+    "remark" : "",
     "tagged" : [ ],
     "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b82"
   }, {
@@ -47,6 +53,7 @@
     "phone" : "9482442",
     "email" : "anna@example.com",
     "address" : "4th street",
+    "remark" : "",
     "tagged" : [ ],
     "id" : "5ad1dd04-e8d8-411e-9916-2f89bce26b81"
   } ]
