@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
@@ -24,14 +24,14 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTaskCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SUBJECT, PREFIX_CONTENT, PREFIX_STATUS);
-        if (!arePrefixesPresent(argMultimap, PREFIX_SUBJECT, PREFIX_CONTENT, PREFIX_STATUS)
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_STATUS);
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_STATUS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
         Status status = ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
-        Subject subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
+        Subject subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_TITLE).get());
         Task task = new Task(subject, content, status);
         return new AddTaskCommand(task);
     }

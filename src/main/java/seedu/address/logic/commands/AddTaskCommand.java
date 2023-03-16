@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,11 +18,11 @@ public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addtask";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to OfficeConnect. "
             + "Parameters: "
-            + PREFIX_SUBJECT + "SUBJECT "
+            + PREFIX_TITLE + "SUBJECT "
             + PREFIX_CONTENT + "CONTENT "
             + PREFIX_STATUS + "STATUS \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_SUBJECT + "Complete Project X "
+            + PREFIX_TITLE + "Complete Project X "
             + PREFIX_CONTENT + "Do the UML diagram "
             + PREFIX_STATUS + "false ";
 

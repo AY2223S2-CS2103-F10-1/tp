@@ -10,9 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class CommandTestUtil {
     public static final String VALID_CONTENT_SPORTS = "Ride bicycle";
     public static final String VALID_STATUS_SPORTS = "False";
 
-    public static final String SUBJECT_DESC_SPORTS = " " + PREFIX_SUBJECT + VALID_SUBJECT_SPORTS;
+    public static final String SUBJECT_DESC_SPORTS = " " + PREFIX_TITLE + VALID_SUBJECT_SPORTS;
     public static final String CONTENT_DESC_SPORTS = " " + PREFIX_CONTENT + VALID_CONTENT_SPORTS;
     public static final String STATUS_DESC_SPORTS = " " + PREFIX_STATUS + VALID_STATUS_SPORTS;
 
