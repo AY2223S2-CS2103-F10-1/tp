@@ -323,11 +323,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Finish report
 
 > deletetask 1
-- Task deleted: Finish report
-
-> listtask
-1. Send email to team
-2. Call client
+- Deleted task: Draft proposal; Status: Undone; Content: Complete proposal by 1st March
 
 > bye
 - Goodbye!

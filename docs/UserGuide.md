@@ -199,7 +199,6 @@ Format: `deletetask INDEX`
 
 Examples:
 - `listtasks` followed by `delete 2` deletes the 2nd task in the task list.
-- `findtasks book` followed by `delete 1` deletes the 1st task in the results of the `findtask` command.
 
 ## Locating a Specific Task: `findtask`
 

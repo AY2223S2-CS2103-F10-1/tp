@@ -26,6 +26,10 @@ Given below are my contributions to the project.
   * What it does: With this new feature, users can see all tasks stored in OfficeConnect
   * Justification: This feature is vital, as it allows users to keep track of current tasks stored in OfficeConnect. This helps users better visualise their workload and efficiently delegate the tasks.
   * Highlights: This feature is necessary as it needs to be called to retrieve the index of the task, before deletetask can be called
+- **New Feature**: Delete tasks for OfficeConnect
+  * What it does: With this new feature, users can remove tasks stored in OfficeConnect
+  * Justification: This feature is necessary, as it allows users to removed tasks that are deemed unnecessary, such as tasks that are completed or tasks that are cancelled. 
+  * Highlights: This feature also ensures that the data stored is kept to a minimal, as unused/unnecessary tasks are deleted
 - **Code contributed**: [RepoSense link](https://nus-cs2103-ay2223s2.github.io/tp-dashboard/?search=nicklelodeon&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2023-02-17)
 - **Project management**:
 - **Enhancements to existing features**:
