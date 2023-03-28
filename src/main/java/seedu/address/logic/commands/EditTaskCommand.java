@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.AddTaskCommand.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_CREATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.OfficeConnectModel.PREDICATE_SHOW_ALL_TASKS;
 
@@ -17,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OfficeConnectModel;
 import seedu.address.model.RepositoryModelManager;
+import seedu.address.model.shared.Datetime;
 import seedu.address.model.shared.Id;
 import seedu.address.model.task.Content;
 import seedu.address.model.task.Status;
@@ -31,14 +34,16 @@ public class EditTaskCommand extends Command {
     public static final String COMMAND_WORD = "edittask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of a task by the index number."
-            + "Parameters: "
-            + PREFIX_TITLE + "TITLE "
-            + PREFIX_CONTENT + "CONTENT "
-            + PREFIX_STATUS + "STATUS \n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TITLE + "Complete Project X "
-            + PREFIX_CONTENT + "Do the UML diagram "
-            + PREFIX_STATUS + "false ";
+        + "Parameters: "
+        + PREFIX_TITLE + "TITLE "
+        + PREFIX_CONTENT + "CONTENT "
+        + PREFIX_STATUS + "STATUS \n"
+        + "Example: " + COMMAND_WORD + " 1 "
+        + PREFIX_TITLE + "Complete Project X "
+        + PREFIX_CONTENT + "Do the UML diagram "
+        + PREFIX_STATUS + "false "
+        + PREFIX_TASK_CREATETIME + "CREATEDATE "
+        + PREFIX_TASK_DEADLINE + "DEADLINE ";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "New task added: %1$s";
 
@@ -91,7 +96,10 @@ public class EditTaskCommand extends Command {
         Content updatedContent = editTaskDescriptor.getContent().orElse(taskToEdit.getContent());
         Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
         Id updateId = editTaskDescriptor.getId().orElse(taskToEdit.getId());
-        return new Task(updatedTitle, updatedContent, updatedStatus, updateId);
+        Datetime updateCreateDate = editTaskDescriptor.getCreateDate().orElse(taskToEdit.getCreateDateTime());
+        Datetime updateDeadline = editTaskDescriptor.getDeadline().orElse(taskToEdit.getDeadline());
+
+        return new Task(updatedTitle, updatedContent, updatedStatus, updateCreateDate, updateDeadline, updateId);
     }
 
 
@@ -123,6 +131,9 @@ public class EditTaskCommand extends Command {
         private Status status;
         private Id id;
 
+        private Datetime createDate;
+        private Datetime deadline;
+
         public EditTaskDescriptor() {
         }
 
@@ -135,13 +146,15 @@ public class EditTaskCommand extends Command {
             setContent(toCopy.content);
             setStatus(toCopy.status);
             setId(toCopy.id);
+            setCreateDate(toCopy.createDate);
+            setDeadline(toCopy.deadline);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, content, status);
+            return CollectionUtil.isAnyNonNull(title, content, status, deadline, createDate);
         }
 
         public void setTitle(Title title) {
@@ -152,6 +165,22 @@ public class EditTaskCommand extends Command {
             this.title = new Title(title);
         }
 
+        public Optional<Datetime> getCreateDate() {
+            return Optional.ofNullable(createDate);
+        }
+
+        public void setCreateDate(Datetime createDate) {
+            this.createDate = createDate;
+        }
+
+        public Optional<Datetime> getDeadline() {
+            return Optional.ofNullable(deadline);
+        }
+
+        public void setDeadline(Datetime deadline) {
+            this.deadline = deadline;
+        }
+
         public Optional<Title> getTitle() {
             return Optional.ofNullable(title);
         }
@@ -159,6 +188,7 @@ public class EditTaskCommand extends Command {
         public void setContent(Content content) {
             this.content = content;
         }
+
         public void setContent(String content) {
             this.content = new Content(content);
         }

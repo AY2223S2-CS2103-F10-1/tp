@@ -1,6 +1,6 @@
 .root {
     -fx-primary: #ffadc9; //pink
-    -fx-secondary: derive(#1d1d1d, 10%);
+-fx-secondary: derive(#1d1d1d, 10%);
     -fx-primary-foreground: derive(#1d1d1d, 40%);
     -fx-primary-background: derive(#1d1d1d, 20%);
     -fx-primary-text: #ffb6c1;
@@ -283,10 +283,10 @@
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
+            transparent
+            transparent
+            derive(-fx-base, 80%)
+            transparent;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -354,8 +354,8 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
@@ -461,4 +461,7 @@
     -fx-border-color: #ff9cb9; /* Purple border color */
     -fx-border-width: 1px;
     -fx-border-radius: 5px;
+}
+.progress-indicator .percentage {
+    -fx-fill: white; /* Replace #ff0000 with your desired color */
 }

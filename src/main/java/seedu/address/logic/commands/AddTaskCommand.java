@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,7 +24,8 @@ public class AddTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Complete Project X "
             + PREFIX_CONTENT + "Do the UML diagram "
-            + PREFIX_STATUS + "false ";
+            + PREFIX_STATUS + "false "
+            + PREFIX_TASK_DEADLINE + "2023-03-27 15:30:00";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";

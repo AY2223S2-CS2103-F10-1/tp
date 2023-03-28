@@ -39,17 +39,20 @@ public class TypicalTasks {
 
 
     public static final Task SEND_EMAIL_TO_CLIENT = new TaskBuilder().withTitle("Send email to client")
-            .withContent("Email Mr. Chan about the recent updates on Project X.").build();
-    public static final Task COMPLETE_SLIDES = new TaskBuilder().withTitle("Complete slides").withStatus(true)
-            .withContent("Finish up slides for meeting on 1st March.").build();
+        .withContent("Email Mr. Chan about the recent updates on Project X.").withDeadline("2023-03-27 18:00:00")
+        .withDCreateTime("2023-02-27 17:00:00").build();
+    public static final Task COMPLETE_SLIDES = new TaskBuilder().withTitle("Complete slides")
+        .withDeadline("2023-04-27 18:00:00").withDCreateTime("2023-02-27 17:00:00").withStatus(true)
+        .withContent("Finish up slides for meeting on 1st March.").build();
     public static final Task STOCK_PANTRY = new TaskBuilder().withTitle("Stock pantry")
-            .withContent("Purchase food for the pantry on level 6.").build();
+        .withContent("Purchase food for the pantry on level 6.").withDeadline("2023-03-29 18:00:00")
+        .withDCreateTime("2023-02-27 17:00:00").build();
     public static final Task CHECK_BALANCES = new TaskBuilder().withTitle("Check balances").withStatus(true)
-            .withContent("Check all bank statements.").build();
+        .withContent("Check all bank statements.").build();
     public static final Task DEPOSIT_CASH = new TaskBuilder().withTitle("Deposit cash")
-            .withContent("Deposit cash from last week at the bank.").build();
+        .withContent("Deposit cash from last week at the bank.").build();
     public static final Task SET_APPOINTMENT = new TaskBuilder().withTitle("Set appointment")
-            .withContent("Set up meeting with Mdm Tay for next Monday").withStatus(true).build();
+        .withContent("Set up meeting with Mdm Tay for next Monday").withStatus(true).build();
     public static final Task DATA_ENTRY = new TaskBuilder().withTitle("Data entry")
             .withContent("Update spreadsheet with client information.").withStatus(true).build();
 

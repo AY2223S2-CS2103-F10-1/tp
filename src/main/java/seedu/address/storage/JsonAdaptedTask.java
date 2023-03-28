@@ -1,5 +1,9 @@
 package seedu.address.storage;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.shared.Datetime;
 import seedu.address.model.shared.Id;
 import seedu.address.model.task.Content;
 import seedu.address.model.task.Status;
@@ -31,17 +36,26 @@ public class JsonAdaptedTask {
 
     private final String status;
 
+    @JsonProperty("createDatetime")
+    private final String createDatetime;
+
+    @JsonProperty("deadline")
+    private final String deadline;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given person details.
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("id") String id, @JsonProperty("title") String title,
-                           @JsonProperty("content") String content, @JsonProperty("status") String status) {
+                           @JsonProperty("status") String status, @JsonProperty("content") String content,
+                           @JsonProperty("createDatetime") String createDatetime,
+                           @JsonProperty("deadline") String deadline) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.status = status;
+        this.createDatetime = createDatetime;
+        this.deadline = deadline;
     }
 
     /**
@@ -52,6 +66,8 @@ public class JsonAdaptedTask {
         content = source.getContent().getValue();
         status = String.valueOf(source.getStatus().isValue());
         id = source.getId().getValue().toString();
+        deadline = source.getDeadline().getTimestamp().map(Object::toString).orElse(null);
+        createDatetime = source.getCreateDateTime().getTimestamp().map(Object::toString).orElse(null);
 
     }
 
@@ -89,13 +105,31 @@ public class JsonAdaptedTask {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
 
+        if (deadline != null) {
+            if (!Datetime.isValidTimestamp(deadline)) {
+                throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS_TIMESTAMP);
+            }
+        }
+
+        if (createDatetime != null) {
+            if (!Datetime.isValidTimestamp(createDatetime)) {
+                throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS_TIMESTAMP);
+            }
+        }
+
+
         final Id modeId = new Id(id);
         final Title modelTitle = new Title(title);
         final Content modelContent = new Content(content);
         final Status modelStatus = new Status(Boolean.parseBoolean(status));
+        final Datetime modelDeadline = new Datetime(deadline == null ? null
+            : LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(deadline)),
+            ZoneId.systemDefault()).toString());
+        final Datetime modelCreateDatetime = new Datetime(createDatetime == null ? null
+            : LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(createDatetime)),
+            ZoneId.systemDefault()).toString());
 
-
-        return new Task(modelTitle, modelContent, modelStatus, modeId);
+        return new Task(modelTitle, modelContent, modelStatus, modelCreateDatetime, modelDeadline, modeId);
     }
 
 }

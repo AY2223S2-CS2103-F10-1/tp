@@ -31,9 +31,12 @@
 !define STORAGE_COLOR_T3 #806600
 !define STORAGE_COLOR_T2 #544400
 
-!define USER_COLOR #FFFFFFF
+!define USER_COLOR #000000
 
-skinparam BackgroundColor #FFFFFFF
+!define REPO_COLOR #purple
+
+
+skinparam BackgroundColor #FFFFFF
 
 skinparam Shadowing false
 
@@ -60,7 +63,7 @@ skinparam Sequence {
 }
 
 skinparam Participant {
-    FontColor #000000
+    FontColor #FFFFFF
     Padding 20
 }
 

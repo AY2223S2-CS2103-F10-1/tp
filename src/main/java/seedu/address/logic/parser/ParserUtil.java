@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.shared.Datetime;
 import seedu.address.model.shared.Id;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Content;
@@ -188,5 +189,23 @@ public class ParserUtil {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
         return new Status(Boolean.parseBoolean(trimmedStatus));
+    }
+
+    /**
+     * Parses a {@code String datetime} into an {@code Datetime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code datetime} is invalid.
+     */
+    public static Datetime parseDateTime(String datetime) throws ParseException {
+        requireNonNull(datetime);
+        String trimmedStatus = datetime.trim();
+        if (datetime.equals("null")) {
+            return new Datetime();
+        }
+        if (Datetime.validateInput(trimmedStatus) == null) {
+            throw new ParseException(Datetime.MESSAGE_CONSTRAINTS_DATETIME);
+        }
+        return new Datetime(datetime);
     }
 }

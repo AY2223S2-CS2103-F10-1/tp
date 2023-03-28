@@ -3,12 +3,13 @@ layout: page
 title: Developer Guide
 ---
 
-* Table of Contents
-  {:toc}
+* Table of Contents 
+   {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## 1. Introduction
+
 
 ### 1.1 Product Overview
 
@@ -19,17 +20,11 @@ among subordinates, difficulties in coordinating tasks with a large number of em
 tasks like typing and sending emails.
 
 OfficeConnect offers a solution to these problems by providing better visibility into subordinates’ workloads, allowing
-managers to efficiently delegate tasks in an organised manner. The app also automates the process of planning and
-communicating with subordinates, making it easier for managers to get things done. Additionally, the app ensures that
-emails are sent during working hours, so that subordinates will not be disturbed outside of work.
+managers to efficiently delegate tasks in an organised manner. 
 
---------------------------------------------------------------------------------------------------------------------
-
-## 1.2 Setting up, getting started
+### 1.2 Setting up, getting started
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
-
---------------------------------------------------------------------------------------------------------------------
 
 ### 1.3 Acknowledgements
 
@@ -42,13 +37,7 @@ by [se-education.org](https://se-education.org).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
-
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Design**
+## 2. Design
 
 <div markdown="span" class="alert alert-primary">
 
@@ -69,32 +58,40 @@ Given below is a quick overview of main components and how they interact with ea
 
 **`Main`** has two classes called [`Main`](https://github.com/AY2223S2-CS2103-F10-1/tp/blob/master/src/main/java/seedu/address/Main.java)
 and [`MainApp`](https://github.com/AY2223S2-CS2103-F10-1/tp/blob/master/src/main/java/seedu/address/MainApp.java).
-It is responsible for, At app launch: Initializes the components in the correct sequence, and connects them up with each other. At shut down: Shuts down the components and invokes cleanup methods where necessary.
+It is responsible for, </br> At app launch: Initializes the components in the correct sequence, and connects them up with each other. </br> At shut down: Shuts down the components and invokes cleanup methods where necessary.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 The rest of the App consists of four components.
 
 * [**`UI`**](#ui-component): The UI of the App.
 * [**`Logic`**](#logic-component): The command executor.
-* [**`Model`**](#model-component): Holds the data of the App in memory.
+* [**`Model`**](#model-component): Holds the data of persons of the App in memory.
+* [**`OfficeConnectModel`**](#model-component): Holds the data of tasks of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 #### 2.1.2 How the architecture components interact with each other
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues
-the command `delete 1`.
+the command `delete 1` to delete the person at index 1.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
-Each of the four main components (also shown in the diagram above), defines its *API* in an `interface` with the same name as the Component. implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues
+the command `delete 1` to delete the task at index 1.
+
+<img src="images/ArchitectureSequenceDiagramTwo.png" width="574" />
+
+Each of the four main components (excluding OfficeConnectModel), defines its *API* in an `interface` with the same name as the Component. implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality
 using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given
 component through its interface rather than the concrete class (reason: to prevent outside component's being coupled
 to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-
 <img src="images/OfficeComponentManagers.png" width="750" />
+
+As can be seen from the diagram above, OfficeConnectModel is instead a class that contains two repository model managers, one used 
+to keep track of tasks (i.e `Task` objects) and the other used to keep track of the assignment of tasks to persons (i.e `AssignTask` objects).
 
 ### 2.2 UI component
 
@@ -127,11 +124,11 @@ How the `Logic` component works:
 2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is
 3. executed by the `LogicManager`.
 4. The command can communicate with the `Model` or `OfficeConnectModel` when it is executed (e.g. to add a person or
-5. add a task or add a assignment).
-6. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+5. add a task or add an assignment).
+6. The result of the command execution is encapsulated as a `CommandResult` object which is returned from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")`
-API call.
+API call, which deletes the person located at index one.
 
 ![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
 
@@ -145,7 +142,11 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser`(`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object. All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+When called upon to parse a user command, the `AddressBookParser` class creates an 
+`XYZCommandParser`(`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the 
+other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the 
+`AddressBookParser` returns back as a `Command` object. All `XYZCommandParser` classes (e.g., `AddCommandParser`, 
+`DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### 2.4 Model component
 
@@ -153,7 +154,14 @@ How the parsing works:
 
 <img src="images/ModelClassDiagram.png" width="550" />
 
-The `Model` component, stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object). stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a`ReadOnlyUserPref` objects. does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+The `Model` component 
+* Stores the address book data for persons i.e., all `Person` objects (which are contained in a `UniquePersonList` object). 
+* Stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list,
+which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. 
+the UI can be bound to this list so that the UI automatically updates when the data in the list changes. 
+* Stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a`ReadOnlyUserPref` 
+object. 
+* Does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP)
 model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook`
@@ -169,7 +177,11 @@ to only require one `Tag` object per unique tag, instead of each `Person` needin
 
 <img src="images/OfficeConnectModelClassDiagram.png" width="650" />
 
-Stores the task list data and taskAssignment data i.e., all `task` and `assignTask` objects (which are contained in a `UniqueItemList` object). Stores the currently 'selected' `Task` objects and 'AssignTask' (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Task>` and `ObservableList<AssignTask>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. Does not depend on any of the other three components (as the `OfficeConnectModel` represents data entities of the domain, they should make sense on their own without depending on other components)
+* Stores the task list data and taskAssignment data i.e., all `task` and `assignTask` objects (which are contained in a `UniqueItemList` object). 
+* Stores the currently 'selected' `Task` and `AssignTask` objects (e.g., results of a search query) as a separate _filtered_ list 
+which is exposed to outsiders as an unmodifiable `ObservableList<Task>` and `ObservableList<AssignTask>` that can be 
+'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change. 
+* Does not depend on any of the other three components (as the `OfficeConnectModel` represents data entities of the domain, they should make sense on their own without depending on other components)
 
 ### 2.6 Storage component
 
@@ -190,8 +202,12 @@ To address this requirement, a new generic class called RepositoryStorage has be
 This addition allows for increased extensibility and flexibility in the storage component's functionality.
 
 The enhanced design is extendable and also capable of supporting the integration of additional databases into the
-application in the future if required.
-The `Storage` component, can save address book data, task list data, task assignment data and user preference data in json format, and read them back into corresponding objects. Inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed). Depends on some classes in the `Model` and `OfficeConnectModel` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model` and `OfficeConnectModel`)
+application in the future, if required.
+
+The `Storage` component saves address book data, task list data, task assignment data and user preference data in json format 
+and reads them back into corresponding objects. It inherits from both `AddressBookStorage` and `UserPrefStorage`, which 
+means it can be treated as either (if the functionality of only one is needed). It depends on some classes in the `Model`
+and `OfficeConnectModel` component (because the `Storage` component's job is to save/retrieve objects that belong to `Model` and `OfficeConnectModel`)
 
 ### 2.7 Common classes
 
@@ -201,14 +217,15 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
-### 3.1 Adding a task
+Notation: inputs placed in closed brackets [] are optional.
 
+### 3.1 Adding a task
 Syntax: `addtask t/TITLE [c/CONTENT] [st/STATUS]`  
-Purpose: Allows users to add tasks into the OfficeConnectModel
+Purpose: Allows users to add tasks into OfficeConnect.
 
 #### 3.1.1 Implementation
 The implementation of this feature is supported by `AddTaskCommand` and `AddTaskCommandParser`.
-Below is a sequence diagram that illustrates how a user adds new tasks into the OfficeConnectModel.  
+Below is a sequence diagram that illustrates how a user adds new tasks into OfficeConnect.  
 
 ![AddTaskSequenceDiagram](images/AddTaskSequenceDiagram.png)
 
@@ -240,11 +257,11 @@ both the short and long term.
 
 ### 3.2 Deleting a task
 Syntax: `deletetask INDEX`  
-Purpose: Allows users to delete the task at the specified index in the OfficeConnectModel.
+Purpose: Allows users to delete the task at the specified index in OfficeConnect.
 
 #### 3.2.1 Implementation
 The implementation of this feature is supported by `ListTaskCommand`, `DeleteTaskCommand` and `DeleteTaskCommandParser`.
-Below are the steps required to delete a task in the OfficeConnectModel.  
+Below are the steps required to delete a task in OfficeConnect.  
 
 Step 1: User keys in `listtask`, which will display the index of all tasks.
 The user can thus obtain the index of the task that they want to delete.
@@ -278,8 +295,8 @@ Below is an activity diagram showcasing the 2 steps:
     has index 1, second task has index 2 etc.) and thus the invalid indexes can be easily obtained.
   
 ### 3.3 Find a Person's Assigned Task
-Syntax: `find [NAME]`  
-Purpose: Allow users to search and review the list of tasks assigned to the specified person.
+Syntax: `find NAME`  
+Purpose: Allow users to search and review the list of tasks assigned to the specified person in OfficeConnect.
 
 #### 3.3.1 Implementation
 The implementation of this feature is supported by `FindCommand` and `FindCommandParser`.
@@ -289,8 +306,8 @@ Below is an activity diagram that illustrates the control flow for the Find feat
 ![FindTaskActivitySequenceDiagram](images/FindActivityDiagram.png)
 
 ### 3.4 Find a Task's Assignees
-Syntax: `findtask [TASKNAME]` </br>
-Purpose: Allow users to search and review the group of individuals assigned to the specified task.
+Syntax: `findtask TASKNAME` </br>
+Purpose: Allow users to search and review the group of individuals assigned to the specified task in OfficeConnect.
 
 #### 3.4.1 Implementation
 The implementation of this feature is supported by `FindTaskCommand` and `FindTaskCommandParser`.
@@ -322,12 +339,12 @@ The implementation of this feature is supported by `EditTaskCommand` and `EditTa
 
 ### 3.6 Assign a Task
 Syntax: `assign pi/INDEX ti/INDEX` </br>
-Purpose: Allows users to assign a person to a task
+Purpose: Allows users to assign a person to a task in OfficeConnect.
 
 #### 3.6.1 Implementation
 The implementation of this feature is supported by `AssignCommand`, `AssignCommandParser`, `ListCommand`,
 `ListTaskCommand`, `ListAllCommand`, `FindCommand` and `FindTaskCommand`. Below are the steps required to assign a task
-to a person in the OfficeConnectModel. </br>
+to a person in OfficeConnect. </br>
 
 Step 1: User executes `listall` to list all the people and tasks in OfficeConnect.
 * Alternative steps to Step 1:
@@ -363,7 +380,7 @@ The following activity diagram summarizes what happens when a user wants to exec
 
 ### 3.7 Help Window
 
-Syntax: ```help```
+Syntax: `help`
 <br>
 Purpose: Provides users with a bird's eye view of the various methods usable in OfficeConnect.
 
@@ -401,194 +418,10 @@ information, the user can choose to view the comprehensive User Guide instead.
 
 <br>
 
-### \[Proposed\] Undo/redo feature
+### 3.8 Unassigning a Task from a Person
 
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo
-history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the
-following operations:
-
-* `VersionedAddressBook#commit()`— Saves the current address book state in its history.
-* `VersionedAddressBook#undo()`— Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()`— Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and
-`Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
-initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-![UndoRedoState0](images/UndoRedoState0.png)
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls
-`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to
-be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book
-state.
-
-![UndoRedoState1](images/UndoRedoState1.png)
-
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls
-`Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-![UndoRedoState2](images/UndoRedoState2.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution,
-it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the
-`addressBookStateList`.
-
-</div>
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer`
-once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-![UndoRedoState3](images/UndoRedoState3.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at
-index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore.
-The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to
-the user rather
-than attempting to perform the undo.
-
-</div>
-
-The following sequence diagram shows how the undo operation works:
-
-![UndoSequenceDiagram](images/UndoSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should
-end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer`
-once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index
-`addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook
-states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so,
-it will return an error to the user rather than attempting to perform the redo.
-
-</div>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as
-`list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-![UndoRedoState4](images/UndoRedoState4.png)
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not
-pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer`
-will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior
-that most modern desktop applications follow.
-
-![UndoRedoState5](images/UndoRedoState5.png)
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/CommitActivityDiagram.png" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-    * Pros: Easy to implement.
-    * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-    * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-    * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-### Adding a task
-
-Syntax: `addtask t/TITLE [c/CONTENT] [st/STATUS]` </br>
-Purpose: Allows users to add tasks into the OfficeConnectModel
-
-#### Implementation
-The implementation of this feature is supported by `AddTaskCommand` and `AddTaskCommandParser`.
-Below is a sequence diagram that illustrates how a user adds new tasks into the OfficeConnectModel. </br>
-
-![AddTaskSequenceDiagram](images/AddTaskSequenceDiagram.png)
-
-#### Design Considerations
-**Aspect: Format of inputs in Add Task Command**
-
-* **Alternative 1 (current choice):** Only title is required when creating a task. The other fields are optional.
-    * Pros: As users may not have a content or status in mind when creating new tasks, this alternative allows flexibility
-  in user input, which makes the app more user-friendly. Some tasks may also be self-explanatory and thus do not 
-  require content descriptions.
-    * Cons: More difficult to implement, more likely to cause bugs.
-
-* **Alternative 2:** Require all fields to be compulsory
-    * Pros: Easier to implement, fewer bugs may be generated.
-    * Cons: Less intuitive and less user-friendly, as users who might not have a content description in mind when 
-  creating tasks may be forced to key in random content to add tasks.
-
-#### Constraints:
-**Title must be unique:** </br>
-We felt that the title should be unique as it improves organisation and visual clarity for the user. By mandating unique 
-titles, we encourage users to be specific in the title(purpose) of the task (e.g they will set title as 
-"Complete slides for Mr X" rather than "Complete Slides"), which will benefit them greatly, as they will be 
-able to clearly distinguish the purpose of each task just by looking at the title. </br>
-Suppose that the title was not unique. Users might have many tasks with the same title, which would impair their ability
-to distinguish between the tasks unless they read each of the task content individually. It would also impair visual
-clarity when searching for tasks, as tasks with similar titles might clutter up the GUI.
-Hence, our approach in mandating unique titles are geared towards improving organisation and visual clarity for users in 
-both the short and long term.
-
-### Deleting a task
-Syntax: `deletetask INDEX` </br>
-Purpose: Allows users to delete the task at the specified index in the OfficeConnectModel.
-
-#### Implementation
-The implementation of this feature is supported by `ListTaskCommand`, `DeleteTaskCommand` and `DeleteTaskCommandParser`.
-Below are the steps required to delete a task in the OfficeConnectModel. </br>
-
-Step 1: User keys in `listtask`, which will display the index of all tasks. 
-The user can thus obtain the index of the task that they want to delete.
-
-Step 2: User keys in `deletetask INDEX` to delete the task at the specified index. 
-If the index is invalid, an error will be thrown. 
-
-Below is an activity diagram showcasing the 2 steps: </br> 
-![DeleteTaskActivityDiagram](images/DeleteTaskActivityDiagram.png)
-
-#### Design Considerations
-**Aspect: Implementation of Delete Task Command**
-
-* **Alternative 1 (current choice):** Users have to call `listtask` to find the index of the task they wish to delete.
-    * Pros: Increase convenience for users, as they do not have to remember the index of each task. Also easier to implement.
-    * Cons: Increases coupling within OfficeConnectModel, as any bug with `listtask` could render users incapable of 
-  obtaining the index needed for `deletetask`.
-
-* **Alternative 2:** Allow users to key in the index of each task when creating tasks, after which they can 
-use this index when deleting tasks
-    * Pros: If the user remembers the index of each task, they will not need to call `listtask`. Hence, it will be less
-  troublesome for them to delete tasks as the number of steps required is reduced by one. 
-  Also reduces coupling, as `deletetask` will not have to depend on `listtask` to function properly.
-    * Cons: The cons of this alternative lies in the difficulty of managing indexes when adding and deleting tasks. </br>
-  If the user does not keep track of the indexes they have used for previous tasks, they may have to still 
-  call `listtask` to find the index of the task they wish to delete or to find unused indexes to add tasks, which will not 
-  give it an advantage over the first alternative. </br>
-  It would also be harder to keep track of invalid indexes. When tasks are deleted, their index should be invalid. Using
-  this alternative, we would have to constantly update a list of invalid indexes when adding or deleting tasks, which 
-  would be troublesome and could lead to bugs. In alternative 1, all indexes are flushed to the front (i.e first task
-  has index 1, second task has index 2 etc) and thus the invalid indexes can be easily obtained.
-
-## Unassigning a Task from a Person
-
-**Syntax:** `unassign pi/PERSON_INDEX ti/TASK_INDEX`  
-**Purpose:** Allows users to unassign a task from a person.
+Syntax: `unassign pi/PERSON_INDEX ti/TASK_INDEX`  
+Purpose: Allows users to unassign a task from a person in OfficeConnect.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -597,11 +430,11 @@ The following activity diagram summarizes what happens when a user executes a ne
 Below is a sequence diagram that illustrates how a user unassign a tasks from a person in the OfficeConnectModel. 
 
 ![AddTaskSequenceDiagram](images/UnassignSequenceDiagram.png)
-### Implementation
+#### 3.8.1 Implementation
 
 The implementation of this feature is supported by `UnassignTaskCommand` and `UnassignTaskCommandParser`.
 
-### Design Considerations
+#### 3.8.2 Design Considerations
 
 **Aspect: Unassigning a task from a person**
 
@@ -613,9 +446,38 @@ The implementation of this feature is supported by `UnassignTaskCommand` and `Un
     - Pros: No need to obtain the index of the task and person, which could reduce the steps required for the user.
     - Cons: Task titles and person names might be long, making it more difficult for users to input the command. There could also be issues with names that are not unique.
 
+### 3.9 List all tasks
+Syntax: `listtask`  
+Purpose: Displays all tasks stored in OfficeConnect.
+
+#### 3.9.1 Implementation
+The implementation of this feature is supported by `OfficeConnectModel`.
+Below is a sequence diagram that illustrates how a user can see all tasks stored in OfficeConnect.
+
+![ListTaskSequenceDiagram](images/ListTaskSequenceDiagram.png)
+
+### 3.10 Filter persons according to tag
+Syntax: `filter t/TAG`  
+Purpose: Allows users to find all persons with the specified tag
+
+#### 3.10.1 Implementation
+The implementation of this feature is supported by `FilterCommand` and `FilterCommandParser`.
+Below is an activity diagram that illustrates how a user finds all persons with the specified tag.
+
+![FilterTaskActivityDiagram](images/FilterTaskActivityDiagram.png)
+
+#### 3.10.2 Design Considerations
+**Aspect: Number of tags that users can input**
+
+* **Alternative 1 (current choice):** Only one tag is allowed.
+  * Pros: Encourage users to be specific in the tag they are searching for. Easier implementation.
+  * Cons: Users will have to use the command as many times as the number of tags they want to search.
+
+* **Alternative 2:** Allow multiple tags
+  * Pros: Allows users to search for more than one tag at once, which increases convenience and flexibility.
+  * Cons: Could produce many search results which may clutter up the GUI (as opposed to searching for only one task). More prone to bugs.
 
 --------------------------------------------------------------------------------------------------------------------
-
 ## 4. Documentation, logging, testing, configuration, dev-ops
 
 * [Documentation guide](Documentation.md)
@@ -624,7 +486,6 @@ The implementation of this feature is supported by `UnassignTaskCommand` and `Un
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
 --------------------------------------------------------------------------------------------------------------------
-
 ## 5. Appendix: Requirements
 
 ### 5.1 Product scope
@@ -648,21 +509,21 @@ The implementation of this feature is supported by `UnassignTaskCommand` and `Un
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                | So that I can…​                                                        |
-|----------|--------------------------------------------|---------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                      | refer to instructions when I forget how to use the App                 |
-| `* * *`  | manager                                    | add tasks                                   |                                                                        |
-| `* * *`  | manager                                    | edit tasks                                  | keep the task updated with the most updated information                |
-| `* * *`  | manager                                    | delete tasks                                | remove tasks that I no longer need                                     |
-| `* * *`  | manager                                    | find tasks assigned to specific subordinate | better manage my subordinates workload                                 |
-| `* * *`  | manager                                    | check all ongoing tasks available           | better delegate my tasks                                               |
-| `* * *`  | manager                                    | assign tasks to a subordinate               | keep track of which subordinate is in charge of which task             |
-| `* * *`  | manager                                    | unassign tasks from a subordinate           | assign this task to other subordinate                                  |
-| `* * *`  | manager                                    | add a subordinate                           |                                                                        |
-| `* * *`  | manager                                    | delete a subordinate                        | remove subordinates that I no longer need                              |
-| `* * *`  | manager                                    | find a subordinate by name                  | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details                | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name                        | locate a person easily                                                 |
+| Priority | As a …​                                    | I want to …​                                       | So that I can…​                                                        |
+|----------|--------------------------------------------|----------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions                             | refer to instructions when I forget how to use the App                 |
+| `* * *`  | manager                                    | add tasks                                          |                                                                        |
+| `* * *`  | manager                                    | edit tasks                                         | keep the task updated with the most updated information                |
+| `* * *`  | manager                                    | delete tasks                                       | remove tasks that I no longer need                                     |
+| `* * *`  | manager                                    | marks tasks as done and undone                     | keep track of tasks that are completed                                 |
+| `* * *`  | manager                                    | find tasks assigned to specific subordinate        | better manage my subordinates workload                                 |
+| `* * *`  | manager                                    | check all ongoing tasks available                  | better delegate my tasks                                               |
+| `* * *`  | manager                                    | assign tasks to a subordinate                      | keep track of which subordinate is in charge of which task             |
+| `* * *`  | manager                                    | unassign tasks from a subordinate                  | assign this task to other subordinate                                  |
+| `* * *`  | manager                                    | add a subordinate                                  |                                                                        |
+| `* * *`  | manager                                    | delete a subordinate                               | remove subordinates that I no longer need                              |
+| `* * *`  | manager                                    | find a subordinate by name                         | locate details of persons without having to go through the entire list |
+| `* * *`  | manager                                    | filter subordinates based on their department(tag) | locate subordinates based on their department(tag)                     |
 
 ### 5.3 Acceptance Criteria
 
@@ -915,7 +776,7 @@ feature would work in practice.
    Use case ends.
 
 ---
-#### 5.4.9 Use case 9: Mark a tasks
+#### 5.4.9 Use case 9: Mark a task
 
 **Main Success Scenario (MSS):**
 
@@ -948,7 +809,7 @@ feature would work in practice.
       Use case ends.
 
 ---
-#### 5.4.10 Use case 10: Unmark a tasks
+#### 5.4.10 Use case 10: Unmark a task
 
 **Main Success Scenario (MSS):**
 
@@ -1014,7 +875,28 @@ feature would work in practice.
 
   Use case ends.
 
-### Non-Functional Requirements
+---
+#### 5.4.13 Use case 13: Filter persons based on tag
+
+**Main Success Scenario (MSS):**
+
+1. User requests to filter persons based on a specific tag
+
+2. OfficeConnect displays all persons assigned to the tag
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The tag is invalid
+  
+  * 1a1. OfficeConnect throws an error.
+
+    Use case ends.
+
+
+
+### 5.5 Non-Functional Requirements
 
 1. Performance: The system shall respond to user input within 2 seconds, even under peak load conditions.
 2. Maintainability: The system shall be designed to allow for easy maintenance and updates, with clear documentation
@@ -1024,7 +906,7 @@ feature would work in practice.
 5. Usability: The system shall have a user interface that is intuitive and easy to use, with a learning curve of no more
    than 2 hours for a new user.
 
-### Glossary
+### 5.6 Glossary
 
 1. Unassign: remove assignment of task from the person.
 
@@ -1038,7 +920,7 @@ feature would work in practice.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## 6. Appendix: Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
@@ -1053,7 +935,7 @@ testers are expected to do more *exploratory* testing.
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts and sample tasks. The window size may not be
       optimum.
 
 2. Saving window preferences
@@ -1062,7 +944,6 @@ testers are expected to do more *exploratory* testing.
    2. Re-launch the app by double-clicking the jar file.<br>
       Expected: The most recent window size and location is retained.
 
-3_{ more test cases …​ }_
 
 ### 6.2 Deleting a person
 

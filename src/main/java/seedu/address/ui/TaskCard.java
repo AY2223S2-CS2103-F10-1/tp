@@ -1,17 +1,27 @@
 package seedu.address.ui;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
 
 /**
  * A TaskCard Controller class
  */
 public class TaskCard extends UiPart<Region> {
+    private static final Logger logger = LogsCenter.getLogger(TaskCard.class);
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -23,11 +33,10 @@ public class TaskCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
     public final Task task;
-
     @FXML
     private FlowPane personIndexes;
-    @javafx.fxml.FXML
-    private HBox cardPane;
+    @FXML
+    private VBox cardVbox;
     @FXML
     private Label title;
     @FXML
@@ -36,7 +45,8 @@ public class TaskCard extends UiPart<Region> {
     private Label status;
     @FXML
     private Label id;
-
+    @FXML
+    private Label createDate;
 
 
     /**
@@ -49,6 +59,44 @@ public class TaskCard extends UiPart<Region> {
         title.setText(task.getTitle().getValue());
         content.setText(task.getContent().getValue());
         setStatusSymbol(task.getStatus().isValue());
+        createDate.setText("Create Date: " + task.getCreateDateTime().getTimestamp().map(timestamp -> {
+            LocalDateTime datetime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+            return datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }).orElse(""));
+
+        if (task.getDeadline().getTimestamp().isPresent()) {
+            LocalDateTime endTime = LocalDateTime.ofInstant(Instant
+                .ofEpochMilli(task.getDeadline().getTimestamp().get()), ZoneId.systemDefault());
+            LocalDateTime startTime = LocalDateTime.ofInstant(Instant
+                .ofEpochMilli(task.getCreateDateTime().getTimestamp().get()), ZoneId.systemDefault());
+
+            int statusIndex = cardVbox.getChildren().indexOf(status);
+            Label deadline = new Label("deadline");
+            deadline.setText("Deadline: " + endTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+            deadline.getStyleClass().add("cell_small_label");
+            cardVbox.getChildren().add(statusIndex + 1, deadline);
+
+
+            long totalDiff = ChronoUnit.SECONDS.between(startTime, endTime);
+            long currDiff = ChronoUnit.SECONDS.between(startTime, LocalDateTime.now());
+
+            double timeLapse = totalDiff == 0 ? 1 : (double) currDiff / totalDiff;
+
+            logger.info("Progress time :" + timeLapse);
+            ProgressBar timeProgress = new ProgressBar(timeLapse);
+            timeProgress.getStyleClass().add("time_progress");
+            cardVbox.getChildren().add(timeProgress);
+            Region progressBarParent = (Region) timeProgress.getParent();
+            timeProgress.prefWidthProperty().bind(progressBarParent.widthProperty());
+            if (task.getStatus().isValue()) {
+                timeProgress.setStyle("-fx-accent: green;"); // set the color to blue
+
+            } else if (timeLapse >= 1) {
+                timeProgress.setStyle("-fx-accent: red;"); // set the color to blue
+            }
+        }
+
 
         task.getPeoples()
             .forEach(person -> {

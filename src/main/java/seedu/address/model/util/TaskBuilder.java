@@ -1,6 +1,9 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
+
 import seedu.address.model.Repository;
+import seedu.address.model.shared.Datetime;
 import seedu.address.model.shared.Id;
 import seedu.address.model.task.Content;
 import seedu.address.model.task.Status;
@@ -22,6 +25,8 @@ public class TaskBuilder {
     private Title title;
     private Content content;
     private Status status;
+    private Datetime deadline;
+    private Datetime createTime;
 
     private Id id;
 
@@ -32,6 +37,8 @@ public class TaskBuilder {
         title = new Title(DEFAULT_TITLE);
         content = new Content(DEFAULT_CONTENT);
         status = new Status(DEFAULT_STATUS);
+        createTime = new Datetime(LocalDateTime.now().toString());
+        deadline = new Datetime();
         id = new Id();
     }
 
@@ -43,6 +50,8 @@ public class TaskBuilder {
         content = taskToCopy.getContent();
         status = taskToCopy.getStatus();
         id = taskToCopy.getId();
+        deadline = taskToCopy.getDeadline();
+        createTime = taskToCopy.getCreateDateTime();
     }
 
     private Task buildRandomTask() {
@@ -106,6 +115,24 @@ public class TaskBuilder {
         this.status = new Status(Boolean.parseBoolean(status));
         return this;
     }
+
+    /**
+     * Sets the {@code Deadline} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDeadline(String deadline) {
+        this.deadline = new Datetime(deadline);
+        return this;
+    }
+
+    /**
+     * Sets the {@code CreateTime} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withDCreateTime(String createTime) {
+        this.createTime = new Datetime(createTime);
+        return this;
+    }
+
+
     /**
      * Sets the {@code Id} of the {@code Task} that we are building.
      */
@@ -113,6 +140,7 @@ public class TaskBuilder {
         this.id = new Id(id);
         return this;
     }
+
     /**
      * Sets the {@code Id} of the {@code Task} that we are building.
      */
@@ -127,7 +155,7 @@ public class TaskBuilder {
      * @return Task containing specified {@code Title, @code Content, @code Status}
      */
     public Task build() {
-        return new Task(title, content, status, id);
+        return new Task(title, content, status, createTime, deadline, id);
     }
 
 

@@ -2,11 +2,14 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import seedu.address.model.Relationship;
 import seedu.address.model.person.Person;
+import seedu.address.model.shared.Datetime;
 import seedu.address.model.shared.Id;
 
 /**
@@ -23,7 +26,12 @@ public class Task implements Relationship<Task> {
     private final Content content;
     private final Status status;
 
-    private List<Person> peoples;
+    private List<Person> peoples = new ArrayList<>();
+
+    private final Datetime createDateTime;
+    private final Datetime deadline;
+
+
 
     /**
      * Every field must be present and not null.
@@ -34,19 +42,52 @@ public class Task implements Relationship<Task> {
         this.content = content;
         this.status = status;
         this.id = new Id();
+        this.deadline = new Datetime();
+        this.createDateTime = new Datetime(LocalDateTime.now().toString());
 
     }
 
     /**
      * Every field must be present and not null.
+     */
+    public Task(Title title, Content content, Status status, Datetime deadline) {
+        requireAllNonNull(title, content, status, deadline);
+        this.title = title;
+        this.content = content;
+        this.status = status;
+        this.id = new Id();
+        this.deadline = deadline;
+        this.createDateTime = new Datetime(LocalDateTime.now().toString());
+
+    }
+
+
+    /**
      * ID must be specific when loading from local storage
      */
-    public Task(Title title, Content content, Status status, Id id) {
+    public Task(Title title, Content content, Status status, Datetime deadline, Id id) {
         requireAllNonNull(title, content, status);
         this.title = title;
         this.content = content;
         this.status = status;
         this.id = id;
+        this.deadline = deadline;
+        this.createDateTime = new Datetime(LocalDateTime.now().toString());
+
+
+    }
+
+    /**
+     * ID must be specific when loading from local storage
+     */
+    public Task(Title title, Content content, Status status, Datetime createDateTime, Datetime deadline, Id id) {
+        requireAllNonNull(title, content, status);
+        this.title = title;
+        this.content = content;
+        this.status = status;
+        this.id = id;
+        this.createDateTime = createDateTime;
+        this.deadline = deadline;
 
     }
 
@@ -70,6 +111,14 @@ public class Task implements Relationship<Task> {
         return status;
     }
 
+    public Datetime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public Datetime getDeadline() {
+        return deadline;
+    }
+
     public void setPeoples(List<Person> peoples) {
         this.peoples = peoples;
     }
@@ -77,6 +126,8 @@ public class Task implements Relationship<Task> {
     public List<Person> getPeoples() {
         return peoples;
     }
+
+
 
     /**
      * Returns true if both tasks have the same title.
