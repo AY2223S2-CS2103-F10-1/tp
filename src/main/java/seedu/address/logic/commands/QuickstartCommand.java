@@ -4,7 +4,7 @@ import seedu.address.model.Model;
 import seedu.address.model.OfficeConnectModel;
 
 /**
- * Terminates the program.
+ * Generates a QuickStart guide.
  */
 public class QuickstartCommand extends Command {
 

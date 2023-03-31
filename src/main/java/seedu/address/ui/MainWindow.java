@@ -100,9 +100,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(baseMenuItem, KeyCombination.valueOf("F1"));
         setAccelerator(lightMenuItem, KeyCombination.valueOf("F2"));
         setAccelerator(darkMenuItem, KeyCombination.valueOf("F3"));
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F4"));
+        setAccelerator(quickMenuItem, KeyCombination.valueOf("F5"));
     }
 
     /**
@@ -135,13 +137,20 @@ public class MainWindow extends UiPart<Stage> {
         });
         //@@author Guo-KeCheng
         EventHandler<KeyEvent> keyEventHandler = event -> {
-            if (event.getCode() == KeyCode.F2) {
-                // Perform action for F1
+            if (event.getCode() == KeyCode.F1) {
+                handleExit();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F2) {
                 setLightTheme();
                 event.consume();
             } else if (event.getCode() == KeyCode.F3) {
-                // Perform action for F2
                 setDarkTheme();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F4) {
+                handleHelp();
+                event.consume();
+            } else if (event.getCode() == KeyCode.F4) {
+                handleQuickstart();
                 event.consume();
             }
         };

@@ -66,14 +66,14 @@ public class TaskBuilder {
     }
 
     /**
-     * Generates a random task
+     * Generates a random task.
      */
     public static Task ofRandomTask() {
         return new TaskBuilder().buildRandomTask();
 
     }
     /**
-     * Generates a random list of tasks
+     * Generates a random list of tasks.
      */
     public static Repository<Task> ofRandomTaskBook(int size) {
         Repository<Task> taskRepository = new Repository<>();
@@ -150,7 +150,7 @@ public class TaskBuilder {
     }
 
     /**
-     * Sets Task to be created
+     * Sets Task to be created.
      *
      * @return Task containing specified {@code Title, @code Content, @code Status}
      */

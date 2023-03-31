@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
- * Controller for a help page
+ * Controller for a QuickstartWindow.
  */
 public class QuickstartWindow extends UiPart<Stage> {
 
@@ -118,6 +118,13 @@ public class QuickstartWindow extends UiPart<Stage> {
             return QuickstartImages.QUICKSTART_ELEVENTHPAGE;
         case 11:
             return QuickstartImages.QUICKSTART_TWELFTHPAGE;
+        case 12:
+            return QuickstartImages.QUICKSTART_THIRTEENTHPAGE;
+        case 13:
+            return QuickstartImages.QUICKSTART_FOURTEENTHPAGE;
+        case 14:
+            return QuickstartImages.QUICKSTART_FIFTEENTHPAGE;
+
         default:
             return QuickstartImages.QUICKSTART_FIRSTPAGE;
         }

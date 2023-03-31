@@ -18,7 +18,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
 /**
- * Unmarks a marked task as uncompleted
+ * Unmarks a marked task as uncompleted.
  */
 public class UnmarkCommand extends Command {
     public static final String COMMAND_WORD = "unmark";
@@ -32,7 +32,7 @@ public class UnmarkCommand extends Command {
     private final Index taskIndex;
 
     /**
-     * Creates an UnmarkCommand object to unmark the task at specified {@code Index}
+     * Creates an UnmarkCommand object to unmark the task at specified {@code Index}.
      */
     public UnmarkCommand(Index taskIndex) {
         requireNonNull(taskIndex);
@@ -54,7 +54,7 @@ public class UnmarkCommand extends Command {
         }
 
         Task unmarkedTask = createUnmarkedTask(taskToUnmark);
-        officeConnectModel.setTaskModelManagerItem(taskToUnmark, unmarkedTask);
+        officeConnectModel.setTaskModelManagerItem(taskToUnmark, unmarkedTask, model);
 
         return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, unmarkedTask));
     }

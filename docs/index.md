@@ -7,6 +7,7 @@ title: OfficeConnect
 [![codecov](https://codecov.io/gh/AY2223S2-CS2103-F10-1/tp/branch/master/graph/badge.svg)](https://codecov.io/gh/AY2223S2-CS2103-F10-1/tp)
 
 ![Ui](images/Ui.png)
+![Ui](images/UiDark.png)
 
 **OfficeConnect is a task management tool designed specifically for managerial role personnel at companies.**
 

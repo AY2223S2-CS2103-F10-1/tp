@@ -9,7 +9,7 @@ import seedu.address.model.RepositoryModelManager;
 import seedu.address.model.task.Task;
 
 /**
- * Lists all persons and tasks in the address book
+ * Lists all persons and tasks in the address book.
  */
 public class ListAllCommand extends Command {
     public static final String COMMAND_WORD = "listall";

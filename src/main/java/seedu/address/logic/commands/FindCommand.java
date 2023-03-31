@@ -36,7 +36,7 @@ public class FindCommand extends Command {
 
 
     /**
-     * Creates FindCommand object with given personIndex
+     * Creates FindCommand object with given personIndex.
      */
     public FindCommand(NameContainsInOrderKeywordsPredicate predicate) {
         requireAllNonNull(predicate);
@@ -45,7 +45,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes FindCommand
+     * Executes FindCommand.
      */
     @Override
     public CommandResult execute(Model model, OfficeConnectModel officeConnectModel) throws CommandException {

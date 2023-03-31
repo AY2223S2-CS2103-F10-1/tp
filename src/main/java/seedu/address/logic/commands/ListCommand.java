@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.OfficeConnectModel;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in OfficeConnect to the user.
  */
 public class ListCommand extends Command {
 

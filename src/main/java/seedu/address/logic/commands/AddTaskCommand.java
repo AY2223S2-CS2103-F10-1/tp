@@ -31,8 +31,9 @@ public class AddTaskCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
     private final Task toAdd;
+
     /**
-     * Creates an AddTaskCommand to add the specified {@code Task}
+     * Creates an AddTaskCommand to add the specified {@code Task}.
      */
     public AddTaskCommand(Task task) {
         requireNonNull(task);

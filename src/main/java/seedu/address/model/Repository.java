@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the repository level
+ * Wraps all data at the repository level.
  */
 public class Repository<T extends Relationship<T>> implements ReadOnlyRepository<T> {
 
@@ -29,7 +29,7 @@ public class Repository<T extends Relationship<T>> implements ReadOnlyRepository
     }
 
     /**
-     * Creates a Repository using the data in the {@code toBeCopied}
+     * Creates a Repository using the data in the {@code toBeCopied}.
      */
     private Repository(ReadOnlyRepository<T> toBeCopied) {
         this();

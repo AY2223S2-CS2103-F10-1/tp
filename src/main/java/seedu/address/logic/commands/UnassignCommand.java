@@ -14,7 +14,7 @@ import seedu.address.model.task.Task;
 
 
 /**
- * Assigns a person identified to a task identified using their displayed index from the address book.
+ * Unassigned a person identified to a task identified using their displayed indices from lists.
  */
 public class UnassignCommand extends Command {
     public static final String COMMAND_WORD = "unassign";
@@ -29,7 +29,7 @@ public class UnassignCommand extends Command {
     private final Index taskIndex;
 
     /**
-     * Creates AssignCommand object with given personIndex and taskIndex
+     * Creates UnassignCommand object with given personIndex and taskIndex.
      */
     public UnassignCommand(Index personIndex, Index taskIndex) {
         requireAllNonNull(personIndex, taskIndex);
@@ -39,7 +39,7 @@ public class UnassignCommand extends Command {
     }
 
     /**
-     * Executes AssignCommand with given personIndex and taskIndex
+     * Executes UnassignCommand with given personIndex and taskIndex.
      */
     @Override
     public CommandResult execute(Model model, OfficeConnectModel officeConnectModel) throws CommandException {

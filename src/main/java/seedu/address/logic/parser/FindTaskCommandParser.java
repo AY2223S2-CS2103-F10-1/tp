@@ -7,12 +7,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.task.TitleContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindTaskCommand object
+ * Parses input arguments and creates a new FindTaskCommand object.
  */
 public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the FindTaskCommand
      * and returns an FindTaskCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

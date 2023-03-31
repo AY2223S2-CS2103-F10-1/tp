@@ -12,12 +12,12 @@ title: Developer Guide
 
 
 ### 1.1 Product Overview
-
 OfficeConnect is a task management tool designed specifically for managerial role personnel at companies.
 
-The product addresses several challenges faced by managers in the current office environment, such as work overload
-among subordinates, difficulties in coordinating tasks with a large number of employees, and time-consuming manual
-tasks like typing and sending emails.
+As managers in the current office environment, it is often not easy to grasp the workload of subordinates. This may result in:
+* work overload among subordinates
+* difficulties in coordinating tasks with a large number of employees
+* inefficient, time-consuming administrative tasks like typing and sending emails.
 
 OfficeConnect offers a solution to these problems by providing better visibility into subordinates’ workloads, allowing
 managers to efficiently delegate tasks in an organised manner. 
@@ -351,10 +351,15 @@ to a person in OfficeConnect. </br>
 
 Step 1: User executes `listall` to list all the people and tasks in OfficeConnect.
 * Alternative steps to Step 1:
-  * Step 1.1: User executes `listp` to list all persons or `findp David` to search for David in the contact
-    list.
-  * Step 1.2: User executes `listt` to list all the tasks or `findt slides` to search for a task containing the
-    word slides in its title.
+  * User executes `findp David` to search for David in the contact list followed by `listt` to lists all the tasks.
+  * User executes `findt slides`to search for a task containing the word `slides` in its title followed by `listp`
+    to list all the persons.
+  * User executes `viewunassignedall` to list all the persons that have not been assigned to any tasks and all tasks
+    that have not been assigned to any persons.
+  * User executes `findp David` to search for David in the contact list followed by `viewunassignedt` to list all tasks
+    that have not been assigned to any person.
+  * User executes `findt slides` to search for a task containing the word `slides` in its title followed by 
+    `viewunassignedp` to list all persons that have not been assigned to any tasks.
 * After this step, the target task to assign and the target person to be assigned to said task will appear in the list
   of persons and tasks displayed.
 
@@ -367,7 +372,7 @@ The following activity diagram summarizes what happens when a user wants to exec
 #### 3.6.2 Design Considerations
 **Aspect: Steps Leading to Execution of Assign Command**
 
-* **Alternative 1 (current choice):** Users execute `listp` or `findp` to display a list of persons and `listt` or
+* **Alternative 1 (current choice 1):** Users execute `listp` or `findp` to display a list of persons and `listt` or
   `findt` to display a list of tasks on the application.
   * Pros: Users can search for a specific person or task before assigning.
   * Cons: If `listp` and `listt` are used, users may have to scroll through a long list to search for the desired
@@ -375,7 +380,7 @@ The following activity diagram summarizes what happens when a user wants to exec
     to search for a person, the user will then have to execute `listt` to access the full list of tasks in order to
     identify the task that the user wants to be assigned to that person.
 
-* **Alternative 2 (proposed additional choice):** Users can execute a command to display a list tasks that have not been
+* **Alternative 2 (current choice 2):** Users can execute a command to display a list tasks that have not been
   assigned to any person or to display a people that have not been assigned to that task.
   * Pros: Users can easily view all the tasks that are currently unassigned at the same time, instead of having to execute
     `findt` to search for unassigned tasks one at a time.
@@ -490,8 +495,6 @@ Purpose: Allows new users to better understand how OfficeConnect works.
 Similar to Help Window in section 3.7, this window is maintained by `QuickstartWindow` class, which also maintains 
 similarly named `fxml` and `css` to display the relevant quickstart information.
 
-Users will be shown a guide 
-
 --------------------------------------------------------------------------------------------------------------------
 ## 4. Documentation, logging, testing, configuration, dev-ops
 
@@ -524,27 +527,24 @@ Users will be shown a guide
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                                       | So that I can…​                                                        |
-|----------|--------------------------------------------|----------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions                             | refer to instructions when I forget how to use the App                 |
-| `* * *`  | manager                                    | add tasks                                          |                                                                        |
-| `* * *`  | manager                                    | edit tasks                                         | keep the task updated with the most updated information                |
-| `* * *`  | manager                                    | delete tasks                                       | remove tasks that I no longer need                                     |
-| `* * *`  | manager                                    | marks tasks as done and undone                     | keep track of tasks that are completed                                 |
-| `* * *`  | manager                                    | find tasks assigned to specific subordinate        | better manage my subordinates workload                                 |
-| `* * *`  | manager                                    | check all ongoing tasks available                  | better delegate my tasks                                               |
-| `* * *`  | manager                                    | assign tasks to a subordinate                      | keep track of which subordinate is in charge of which task             |
-| `* * *`  | manager                                    | unassign tasks from a subordinate                  | assign this task to other subordinate                                  |
-| `* * *`  | manager                                    | add a subordinate                                  |                                                                        |
-| `* * *`  | manager                                    | delete a subordinate                               | remove subordinates that I no longer need                              |
-| `* * *`  | manager                                    | find a subordinate by name                         | locate details of persons without having to go through the entire list |
-| `* * *`  | manager                                    | filter subordinates based on their department(tag) | locate subordinates based on their department(tag)                     |
+| Priority | As a …​         | I want to …​                                | So that I can…​                                                        |
+|----------|-----------------|---------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user        | see usage instructions                      | refer to instructions when I forget how to use the App                 |
+| `* * *`  | manager         | add tasks                                   |                                                                        |
+| `* * *`  | manager         | edit tasks                                  | keep the task updated with the most updated information                |
+| `* * *`  | manager         | delete tasks                                | remove tasks that I no longer need                                     |
+| `* * *`  | manager         | mark tasks as done and undone               | keep track of tasks that are completed                                 |
+| `* * *`  | manager         | find tasks assigned to specific subordinate | better manage my subordinates workload                                 |
+| `* * *`  | manager         | check all ongoing tasks available           | better delegate my tasks                                               |
+| `* * *`  | manager         | assign tasks to a subordinate               | keep track of which subordinate is in charge of which task             |
+| `* * *`  | manager         | unassign tasks from a subordinate           | assign this task to other subordinate                                  |
+| `* * *`  | manager         | add a subordinate                           |                                                                        |
+| `* * *`  | manager         | delete a subordinate                        | remove subordinates that I no longer need                              |
+| `* * *`  | manager         | find a subordinate by name                  | locate details of persons without having to go through the entire list |
+| `* * *`  | manager         | filter subordinates based on their department(tag) | locate subordinates based on their department(tag)                     |
+| `* * *`  | manager         | view assigned tasks and persons             | have an overview of tasks and persons with assigned tasks              |
+| `* * *`  | manager         | view unassigned tasks and persons           | have an overview of tasks and persons without assigned tasks           |
 
-### 5.3 Acceptance Criteria
-
-- When I use the "addt" command followed by a task name, a new task with the given name should be added to my task list.
-- The task name should be displayed in the task list.
-- The task should be saved to persistent storage so that it is not lost when I exit the app.
 
 #### 5.3.1 Example Usage
 
@@ -565,9 +565,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 - Deleted task: Draft proposal; Status: Undone; Content: Complete proposal by 1st March
 
-> bye
+> exit
 
-- Goodbye!
 
 In the example above, the user story is clearly defined at the top, followed by the acceptance criteria for the feature.
 Below that, we have a series of example usages, shown in a code editor block to provide clarity and context for how the
@@ -926,9 +925,88 @@ feature would work in practice.
   * 1a1. OfficeConnect throws an error.
 
     Use case ends.
+  
+---
+#### 5.4.14 Use case 14: View all assigned persons and tasks
 
+**Main Success Scenario (MSS):**
 
+1. User requests to view all assigned persons and tasks.
+2. System displays a list of all assigned persons and tasks.
 
+   Use case ends.
+
+---
+#### 5.4.15 Use case 15: View assigned persons
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view assigned persons.
+2. System displays a list of assigned persons.
+
+   Use case ends.
+
+---
+#### 5.4.16 Use case 16: View assigned tasks
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view assigned tasks.
+2. System displays a list of assigned tasks.
+
+   Use case ends.
+
+---
+#### 5.4.17 Use case 17: View a person's details
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view a person's details by specifying their index.
+2. System displays the details of the specified person.
+
+   Use case ends.
+
+---
+#### 5.4.18 Use case 18: View a task's details
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view a task's details by specifying its index.
+2. System displays the details of the specified task.
+
+   Use case ends.
+
+---
+#### 5.4.19 Use case 19: View all unassigned persons and tasks
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view all unassigned persons and tasks.
+2. System displays a list of all unassigned persons and tasks.
+
+   Use case ends.
+
+---
+#### 5.4.20 Use case 20: View unassigned persons
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view unassigned persons.
+2. System displays a list of unassigned persons.
+
+   Use case ends.
+
+---
+#### 5.4.21 Use case 21: View unassigned tasks
+
+**Main Success Scenario (MSS):**
+
+1. User requests to view unassigned tasks.
+2. System displays a list of unassigned tasks.
+
+   Use case ends.
+
+---
 ### 5.5 Non-Functional Requirements
 
 1. Performance: The system shall respond to user input within 2 seconds, even under peak load conditions.
@@ -941,15 +1019,56 @@ feature would work in practice.
 
 ### 5.6 Glossary
 
-1. Unassign: remove assignment of task from the person.
+#### *A*
+* **addp**: Add a new person to the list.
+* **addt**: Add a new task to the list.
+* **assign**: Assign a task to a person.
+
+#### *D*
+* **deletep**: Delete a person from the list.
+* **deletet**: Delete a task from the list.
+
+#### *E*
+* **editp**: Edit the details of a person.
+* **editt**: Edit the details of a task.
+
+#### *F*
+* **filterp**: Filter persons by a specific tag.
+* **findp**: Search for a person by their name.
+* **findt**: Search for a task by its title.
+
+#### *H*
+* **help**: Display help information.
+
+#### *L*
+* **listall**: List all persons and tasks.
+* **listp**: List all persons.
+* **listt**: List all tasks.
 
 #### *M*
-
+* **mark**: Mark a task as completed.
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 
 #### *P*
-
+* **pi**: View a person's details.
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **quickstart**: Launch the application with sample data.
+
+#### *T*
+* **ti**: View a task's details.
+
+#### *U*
+* **unassign**: Unassign a task from a person.
+* **unmark**: Unmark a completed task.
+
+#### *V*
+* **viewassignedall**: View all assigned persons and tasks.
+* **viewassignedp**: View assigned persons.
+* **viewassignedt**: View assigned tasks.
+* **viewunassignedall**: View all unassigned persons and tasks.
+* **viewunassignedp**: View unassigned persons.
+* **viewunassignedt**: View unassigned tasks.
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -1122,3 +1241,57 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect filter persons commands to try: `filterp tag/`)<br>
       Expected: Similar to previous.
 
+### 6.9 Viewing assigned and unassigned tasks and persons
+
+  1. There are assigned tasks and persons in OfficeConnect.
+     1. Prerequisites: There are tasks and persons with assignments.
+     2. Test case: `viewassignedall` <br>
+        Expected: All assigned tasks and persons are displayed. "Displayed all assigned tasks and persons" shown in status message.
+     3. Test case: `viewassignedp` <br>
+        Expected: All assigned persons are displayed. "Displayed all assigned persons" shown in status message.
+     4. Test case: `viewassignedt` <br>
+        Expected: All assigned tasks are displayed. "Displayed all assigned tasks" shown in status message.
+
+
+  2. There are no assigned tasks and persons in OfficeConnect.
+     1. Prerequisites: There are no tasks and persons with assignments.
+     2. Test case: `viewassignedall` <br>
+        Expected: No tasks or persons are displayed. "There are no assigned tasks or persons" shown in status message.
+     3. Test case: `viewassignedp` <br>
+        Expected: No persons are displayed. "There are no assigned persons" shown in status message.
+     4. Test case: `viewassignedt` <br>
+        Expected: No tasks are displayed. "There are no assigned tasks" shown in status message.
+
+     3. There are unassigned tasks and persons in OfficeConnect.
+        1. Prerequisites: There are tasks and persons without assignments.
+        2. Test case: `viewunassignedall` <br>
+           Expected: All unassigned tasks and persons are displayed. "Displayed all unassigned tasks and persons" shown in status message.
+     3. Test case: `viewunassignedp` <br>
+        Expected: All unassigned persons are displayed. "Displayed all unassigned persons" shown in status message.
+     4. Test case: `viewunassignedt` <br>
+        Expected: All unassigned tasks are displayed. "Displayed all unassigned tasks" shown in status message.
+
+  4. There are no unassigned tasks and persons in OfficeConnect.
+     1. Prerequisites: There are no tasks and persons without assignments.
+     2. Test case: `viewunassignedall` <br>
+        Expected: No tasks or persons are displayed. "There are no unassigned tasks or persons" shown in status message.
+     3. Test case: `viewunassignedp` <br>
+        Expected: No persons are displayed. "There are no unassigned persons" shown in status message.
+     4. Test case: `viewunassignedt` <br>
+        Expected: No tasks are displayed. "There are no unassigned tasks" shown in status message.
+
+### 6.10 Viewing task and person details
+
+  1. Task and person details are available in OfficeConnect.
+     1. Prerequisites: The specified task and person indices are valid.
+     2. Test case: `ti INDEX` (replace INDEX with a valid task index) <br>
+        Expected: Task details are displayed. "Displayed task details for task at index: [INDEX]" shown in status message.
+     3. Test case: `pi INDEX` (replace INDEX with a valid person index) <br>
+        Expected: Person details are displayed. "Displayed person details for person at index: [INDEX]" shown in status message.
+
+  2. Task or person details are not available in OfficeConnect.
+     1. Prerequisites: The specified task or person indices are invalid.
+     2. Test case: `ti INDEX` (replace INDEX with an invalid task index) <br>
+        Expected: No task details are displayed. "Task index is invalid" shown in status message.
+     3. Test case: `pi INDEX` (replace INDEX with an invalid person index) <br>
+        Expected: No person details are displayed. "Person index is invalid" shown in status message.

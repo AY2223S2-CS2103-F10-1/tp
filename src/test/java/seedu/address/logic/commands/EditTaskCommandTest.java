@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_SEND_EMAIL;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_SUBMIT_REPORT;
 import static seedu.address.logic.commands.CommandTestUtil.assertTaskCommandSuccess;
@@ -26,7 +26,7 @@ import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 
 public class EditTaskCommandTest {
-    private static OfficeConnectModel officeConnectModel = new OfficeConnectModel(
+    private final OfficeConnectModel officeConnectModel = new OfficeConnectModel(
             new RepositoryModelManager<>(getTypicalTaskRepository()),
             new RepositoryModelManager<>(new Repository<AssignTask>()));
 
@@ -84,18 +84,18 @@ public class EditTaskCommandTest {
         // same values -> returns true
         EditTaskCommand.EditTaskDescriptor copyDescriptor = new EditTaskCommand.EditTaskDescriptor(DESC_SEND_EMAIL);
         EditTaskCommand commandWithSameValues = new EditTaskCommand(INDEX_FIRST, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditTaskCommand(INDEX_SECOND, DESC_SEND_EMAIL)));
+        assertNotEquals(standardCommand, new EditTaskCommand(INDEX_SECOND, DESC_SEND_EMAIL));
 
         // different task -> returns false
-        assertFalse(standardCommand.equals(new EditTaskCommand(INDEX_FIRST, DESC_SUBMIT_REPORT)));
+        assertNotEquals(standardCommand, new EditTaskCommand(INDEX_FIRST, DESC_SUBMIT_REPORT));
     }
 }

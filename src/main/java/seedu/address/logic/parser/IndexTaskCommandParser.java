@@ -7,13 +7,13 @@ import seedu.address.logic.commands.IndexCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new IndexCommand object
+ * Parses input arguments and creates a new IndexTaskCommand object
  */
 public class IndexTaskCommandParser implements Parser<IndexCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the IndexCommand
-     * and returns a IndexCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the IndexTaskCommand
+     * and returns a IndexTaskCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

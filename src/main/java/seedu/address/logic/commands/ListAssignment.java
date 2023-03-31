@@ -8,7 +8,7 @@ import seedu.address.model.OfficeConnectModel;
 import seedu.address.model.mapping.AssignTask;
 
 /**
- * A {@code ListAssignment} class that lists all assigned or unassigned persons and tasks in the address book.
+ * A {@code ListAssignment} class that lists all assigned or unassigned persons and tasks in OfficeConnect.
  */
 public class ListAssignment extends Command {
 

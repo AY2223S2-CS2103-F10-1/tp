@@ -101,7 +101,7 @@ public class Datetime {
     }
 
     /**
-     * Returns the stored timestamp as an Optional
+     * Returns the stored timestamp as an Optional.
      *
      * @return an Optional containing the stored timestamp if it exists, otherwise an empty Optional
      */

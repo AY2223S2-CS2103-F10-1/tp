@@ -52,7 +52,8 @@ public class OfficeConnectModel {
     }
 
     /**
-     * Checks if task model manager contains task
+     * Checks if task model manager contains task.
+     *
      * @param task task to be checked
      * @return true if task model manager contains the item
      */
@@ -61,7 +62,8 @@ public class OfficeConnectModel {
     }
 
     /**
-     * Adds task to task model manager
+     * Adds task to task model manager.
+     *
      * @param task task to be added
      */
     public void addTaskModelManagerItem(Task task) {
@@ -69,7 +71,8 @@ public class OfficeConnectModel {
     }
 
     /**
-     * Checks if assigntask model manager contains assignment
+     * Checks if assigntask model manager contains assignment.
+     *
      * @param assignTask assignment to be checked
      * @return true if assigntask model manager contains the item
      */
@@ -78,7 +81,8 @@ public class OfficeConnectModel {
     }
 
     /**
-     * Adds assignment to assigntask model manager
+     * Adds assignment to assigntask model manager.
+     *
      * @param assignTask assignment to be added
      */
     public void addAssignTaskModelManagerItem(AssignTask assignTask) {
@@ -86,7 +90,8 @@ public class OfficeConnectModel {
     }
 
     /**
-     * Updates filtered item list in task model manager
+     * Updates filtered item list in task model manager.
+     *
      * @param predicate predicate that determines if item should stay in the filtered item list
      */
     public void updateTaskModelManagerFilteredItemList(Predicate<Task> predicate) {
@@ -100,11 +105,13 @@ public class OfficeConnectModel {
     /**
      * Edits the given task in task model manager.
      *
-     * @param target target task to be edited
+     * @param target     target task to be edited
      * @param editedTask edited task
+     * @param model      person list
      */
-    public void setTaskModelManagerItem(Task target, Task editedTask) {
+    public void setTaskModelManagerItem(Task target, Task editedTask, Model model) {
         taskModelManager.setItem(target, editedTask);
+        focusTask(target, model);
     }
 
     /**
@@ -118,6 +125,17 @@ public class OfficeConnectModel {
 
     public ReadOnlyRepository<Task> getTaskModelManagerReadOnlyRepository() {
         return taskModelManager.getReadOnlyRepository();
+    }
+
+    /**
+     * Focus onto a specific task.
+     */
+    public void focusTask(Task taskToFocus, Model model) {
+        updateTaskModelManagerFilteredItemList(task -> task.getId().equals(taskToFocus.getId()));
+        List<AssignTask> assignTasks = getAssignTaskModelManager()
+            .filter(assign -> assign.getTaskId().equals(taskToFocus.getId()));
+        model.updateFilteredPersonList(person -> assignTasks.stream()
+            .anyMatch(assign -> assign.getPersonId().equals(person.getId())));
     }
 
     /**

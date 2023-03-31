@@ -18,7 +18,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
 /**
- * Marks a task as completed
+ * Marks a task as completed.
  */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
     private final Index taskIndex;
 
     /**
-     * Creates a MarkCommand object to mark the task at specified {@code Index}
+     * Creates a MarkCommand object to mark the task at specified {@code Index}.
      */
     public MarkCommand(Index taskIndex) {
         requireNonNull(taskIndex);
@@ -55,7 +55,7 @@ public class MarkCommand extends Command {
         }
 
         Task markedTask = createMarkedTask(taskToMark);
-        officeConnectModel.setTaskModelManagerItem(taskToMark, markedTask);
+        officeConnectModel.setTaskModelManagerItem(taskToMark, markedTask, model);
 
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, markedTask));
     }

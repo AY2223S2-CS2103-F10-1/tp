@@ -9,14 +9,13 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OfficeConnectModel;
-import seedu.address.model.mapping.AssignTask;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
 
 
 /**
  * Represents an IndexCommand that focuses on a person or a task identified using their displayed index
- * from the address book.
+ * from OfficeConnect.
  */
 public class IndexCommand extends Command {
     public static final String COMMAND_WORD_PERSON = "pi";
@@ -63,13 +62,7 @@ public class IndexCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
             Task taskToFocus = lastShownList.get(index.getZeroBased());
-
-            officeConnectModel.updateTaskModelManagerFilteredItemList(task -> task.getId().equals(taskToFocus.getId()));
-            List<AssignTask> assignTasks = officeConnectModel.getAssignTaskModelManager()
-                .filter(assign -> assign.getTaskId().equals(taskToFocus.getId()));
-
-            model.updateFilteredPersonList(person -> assignTasks.stream()
-                .anyMatch(assign -> assign.getPersonId().equals(person.getId())));
+            officeConnectModel.focusTask(taskToFocus, model);
 
             return new CommandResult("Focus on task : " + taskToFocus.getTitle());
 
@@ -83,12 +76,7 @@ public class IndexCommand extends Command {
             Person personToFocus = lastShownList.get(index.getZeroBased());
 
 
-            model.updateFilteredPersonList(person -> person.getId().equals(personToFocus.getId()));
-            List<AssignTask> assignTasks = officeConnectModel.getAssignTaskModelManager()
-                .filter(assign -> assign.getPersonId().equals(personToFocus.getId()));
-
-            officeConnectModel.updateTaskModelManagerFilteredItemList(task -> assignTasks.stream()
-                .anyMatch(assign -> assign.getTaskId().equals(task.getId())));
+            model.focusPerson(personToFocus, officeConnectModel);
             return new CommandResult("Focus on person : " + personToFocus.getName());
         }
     }

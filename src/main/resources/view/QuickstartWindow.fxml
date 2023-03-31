@@ -20,7 +20,7 @@
             <AnchorPane id="quickAnchorPane" prefHeight="470.0" prefWidth="693.0" maxHeight="470.0" maxWidth="693.0">
             <children>
                <Pagination fx:id="quickPagination" layoutX="11.0" layoutY="2.0"
-                           maxPageIndicatorCount="12" pageCount="12" prefHeight="466.0" prefWidth="670.0" />
+                           maxPageIndicatorCount="15" pageCount="15" prefHeight="466.0" prefWidth="670.0" />
             </children>
             </AnchorPane>
 

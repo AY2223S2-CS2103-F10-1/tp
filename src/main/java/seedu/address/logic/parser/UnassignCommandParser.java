@@ -11,13 +11,14 @@ import seedu.address.logic.commands.UnassignCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new UnassignCommand object
+ * Parses input arguments and creates a new UnassignCommand object.
  */
 public class UnassignCommandParser implements Parser<UnassignCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the UnassignCommand
      * and returns an UnassignCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

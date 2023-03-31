@@ -116,10 +116,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPerson(Person target, Person editedPerson, OfficeConnectModel officeConnectModel) {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+        focusPerson(target, officeConnectModel);
+    }
+
+    @Override
+    public void focusPerson(Person personToFocus, OfficeConnectModel officeConnectModel) {
+        updateFilteredPersonList(person -> person.getId().equals(personToFocus.getId()));
+        List<AssignTask> assignTasks = officeConnectModel.getAssignTaskModelManager()
+            .filter(assign -> assign.getPersonId().equals(personToFocus.getId()));
+
+        officeConnectModel.updateTaskModelManagerFilteredItemList(task -> assignTasks.stream()
+            .anyMatch(assign -> assign.getTaskId().equals(task.getId())));
+
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -21,7 +21,7 @@ public class RepositoryModelManager<T extends Relationship<T>> {
     // private final ObservableList<T> internalUnmodifiableList;
 
     /**
-     * Initializes an empty RepositoryModelManager
+     * Initializes an empty RepositoryModelManager.
      */
     public RepositoryModelManager() {
 
@@ -32,7 +32,7 @@ public class RepositoryModelManager<T extends Relationship<T>> {
     }
 
     /**
-     * Initializes a RepositoryModelManager with the given repo
+     * Initializes a RepositoryModelManager with the given repo.
      */
     public RepositoryModelManager(ReadOnlyRepository<T> repo) {
         requireNonNull(repo);

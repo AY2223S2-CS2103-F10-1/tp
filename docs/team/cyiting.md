@@ -13,8 +13,7 @@ OfficeConnect provides managers a convenient way to manage their subordinates as
 managers an overview of their subordinates contacts and their teams  as well as track tasks
 that the subordinates are responsible for completing.
 
-Through OfficeConnect, managers can also plan deadlines, delegate tasks and automate sending
-mass emails.
+Through OfficeConnect, managers can also plan deadlines and delegate tasks.
 
 Given below are my contributions to the project.
 

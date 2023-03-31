@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Controller for a help page
+ * Controller for a help page.
  */
 public class HelpWindow extends UiPart<Stage> {
 
@@ -74,34 +74,78 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public static String instructionMap(String treeItemValue) {
         switch (treeItemValue) {
-        case "Add methods":
+        case "Add commands":
             return HelpStrings.ADDMETHODS_HELP;
-        case "addperson":
+        case "addp":
             return HelpStrings.ADDPERSON_HELP;
-        case "addtask":
+        case "addt":
             return HelpStrings.ADDTASK_HELP;
-        case "Delete methods":
+        case "Delete commands":
             return HelpStrings.DELETEMETHODS_HELP;
-        case "deleteperson":
+        case "deletep":
             return HelpStrings.DELETEPERSON_HELP;
-        case "deletetask":
+        case "deletet":
             return HelpStrings.DELETETASK_HELP;
-        case "List methods":
+        case "Edit commands":
+            return HelpStrings.EDITMETHODS_HELP;
+        case "editp":
+            return HelpStrings.EDITPERSON_HELP;
+        case "editt":
+            return HelpStrings.EDITTASK_HELP;
+        case "List commands":
             return HelpStrings.LISTMETHODS_HELP;
-        case "listperson":
+        case "listp":
             return HelpStrings.LISTPERSON_HELP;
-        case "listtask":
+        case "listt":
             return HelpStrings.LISTTASK_HELP;
-        case "Find methods":
+        case "listall":
+            return HelpStrings.LISTALL_HELP;
+        case "Find commands":
             return HelpStrings.FINDMETHODS_HELP;
-        case "findperson":
+        case "findp":
             return HelpStrings.FINDPERSON_HELP;
-        case "findtask":
+        case "findt":
             return HelpStrings.FINDTASK_HELP;
-        case "Assign methods":
+        case "Marking commands":
+            return HelpStrings.MARKMETHODS_HELP;
+        case "mark":
+            return HelpStrings.MARK_HELP;
+        case "unmark":
+            return HelpStrings.UNMARK_HELP;
+        case "Assign commands":
             return HelpStrings.ASSIGNMETHODS_HELP;
         case "assign":
             return HelpStrings.ASSIGN_HELP;
+        case "unassign":
+            return HelpStrings.UNASSIGN_HELP;
+        case "Filter commands":
+            return HelpStrings.FILTERMETHODS_HELP;
+        case "filterp":
+            return HelpStrings.FILTERPERSON_HELP;
+        case "View commands":
+            return HelpStrings.VIEWMETHODS_HELP;
+        case "pi":
+            return HelpStrings.VIEWPERSON_HELP;
+        case "ti":
+            return HelpStrings.VIEWTASK_HELP;
+        case "viewassignedall":
+            return HelpStrings.VIEWASSIGNEDALL_HELP;
+        case "viewassignedp":
+            return HelpStrings.VIEWASSIGNEDPERSON_HELP;
+        case "viewassignedt":
+            return HelpStrings.VIEWASSIGNEDTASK_HELP;
+        case "viewunassignedall":
+            return HelpStrings.VIEWUNASSIGNEDALL_HELP;
+        case "viewunassignedp":
+            return HelpStrings.VIEWUNASSIGNEDPERSON_HELP;
+        case "viewunassignedt":
+            return HelpStrings.VIEWUNASSIGNEDTASK_HELP;
+        case "Guide commands":
+            return HelpStrings.GUIDEMETHODS_HELP;
+        case "help":
+            return HelpStrings.HELP_HELP;
+        case "quickstart":
+            return HelpStrings.QUICKSTART_HELP;
         default:
             return "";
         }

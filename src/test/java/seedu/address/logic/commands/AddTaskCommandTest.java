@@ -178,8 +178,14 @@ class AddTaskCommandTest {
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPerson(Person target, Person editedPerson, OfficeConnectModel officeConnectModel) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void focusPerson(Person personToFocus, OfficeConnectModel officeConnectModel) {
+            throw new AssertionError("This method should not be called.");
+
         }
 
         @Override

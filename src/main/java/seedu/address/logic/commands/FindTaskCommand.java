@@ -35,7 +35,7 @@ public class FindTaskCommand extends Command {
     private final TitleContainsKeywordsPredicate predicate;
 
     /**
-     * Creates FindTask object with given taskIndex
+     * Creates FindTaskCommand object with given taskIndex.
      */
     public FindTaskCommand(TitleContainsKeywordsPredicate predicate) {
         requireAllNonNull(predicate);
@@ -44,7 +44,7 @@ public class FindTaskCommand extends Command {
     }
 
     /**
-     * Executes FindTaskCommand
+     * Executes FindTaskCommand.
      */
     @Override
     public CommandResult execute(Model model, OfficeConnectModel officeConnectModel) throws CommandException {

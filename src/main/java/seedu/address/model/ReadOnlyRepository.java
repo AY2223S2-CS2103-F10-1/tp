@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 
 /**
- * Unmodifiable view of a repository
+ * Unmodifiable view of a repository.
  */
 public interface ReadOnlyRepository<T> {
     /**

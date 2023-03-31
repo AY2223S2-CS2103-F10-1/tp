@@ -13,7 +13,7 @@ public class HelpWindowTest {
     }
     @Test
     public void instructionMap_addMethods_returnEmptyString() {
-        String testStr = "Add methods";
+        String testStr = "Add commands";
         String resultStr = HelpStrings.ADDMETHODS_HELP;
         assertEquals(HelpWindow.instructionMap(testStr), resultStr);
     }

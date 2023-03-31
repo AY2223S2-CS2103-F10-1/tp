@@ -13,7 +13,7 @@ import seedu.address.model.shared.Datetime;
 import seedu.address.model.shared.Id;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in OfficeConnect.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task implements Relationship<Task> {

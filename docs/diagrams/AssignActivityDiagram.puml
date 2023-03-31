@@ -1,14 +1,12 @@
 @startuml
 start
-if() then ([looking for specific person])
-    :Search for specific person;
-    :List all tasks;
-else if() then ([looking for specific task])
-    :Search for specific task;
-    :List all persons;
+:Search for person(s) and task(s);
+:Lists person(s) and task(s);
+:User inputs chooses person and task by their indices;
+if() then ([valid indices])
+    :Assigns task to person;
 else([else])
-    :List all persons and task;
+    :OfficeConnect throws an error;
 endif
-:Assign task to person;
 stop
 @enduml

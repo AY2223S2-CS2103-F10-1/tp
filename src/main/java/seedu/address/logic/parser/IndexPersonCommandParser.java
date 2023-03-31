@@ -7,7 +7,7 @@ import seedu.address.logic.commands.IndexCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new IndexCommand object
+ * Parses input arguments and creates a new IndexCommand object.
  */
 public class IndexPersonCommandParser implements Parser<IndexCommand> {
 

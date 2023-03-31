@@ -5,7 +5,7 @@ import java.util.UUID;
 
 
 /**
- * Represents an ID to identify the object
+ * Represents an ID to identify the object.
  */
 public class Id {
     /*
