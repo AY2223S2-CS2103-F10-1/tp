@@ -161,14 +161,12 @@ public class Task implements Relationship<Task> {
         Task otherTask = (Task) other;
         return otherTask.getTitle().equals(getTitle())
             && otherTask.getContent().equals(getContent())
-            && otherTask.getStatus().equals(getStatus())
-            && otherTask.getCreateDateTime().equals(getCreateDateTime())
-            && otherTask.getDeadline().equals(getDeadline());
+            && otherTask.getStatus().equals(getStatus());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, status, createDateTime, deadline);
+        return Objects.hash(id, title, content, status);
     }
 
     @Override
@@ -179,9 +177,9 @@ public class Task implements Relationship<Task> {
             + "; Content: "
             + getContent()
             + "; Create Date: "
-            + getCreateDateTime()
+            + getCreateDateTime().toString()
             + "; Deadline: "
-            + getDeadline();
+            + getDeadline().toString();
     }
 
 }

@@ -121,4 +121,12 @@ public class Datetime {
         LocalDateTime currentDate = LocalDateTime.now(zoneId);
         return dateTime.isBefore(currentDate);
     }
+
+    @Override
+    public String toString() {
+        return getTimestamp().map(timestamp -> {
+            LocalDateTime datetime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
+            return datetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }).orElse("");
+    }
 }
